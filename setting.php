@@ -1,31 +1,29 @@
 <div class="wrap">
   <h2>Message ticker</h2>
-  <?php
-global $wpdb, $wp_version;
-
-$mt_title = get_option('mt_title');
-$mt_width = get_option('mt_width');
-$mt_height = get_option('mt_height');
-$mt_delay = get_option('mt_delay');
-$mt_speed = get_option('mt_speed');
-
-if (@$_POST['mt_submit']) 
-{
-	$mt_title = stripslashes($_POST['mt_title']);
-	$mt_width = stripslashes($_POST['mt_width']);
-	$mt_height = stripslashes($_POST['mt_height']);
-	$mt_delay = stripslashes($_POST['mt_delay']);
-	$mt_speed = stripslashes($_POST['mt_speed']);
-
-	update_option('mt_title', $mt_title );
-	update_option('mt_width', $mt_width );
-	update_option('mt_height', $mt_height );
-	update_option('mt_delay', $mt_delay );
-	update_option('mt_speed', $mt_speed );
-
-}
-
-?>
+	<?php
+	global $wpdb, $wp_version;
+	
+	$mt_title = get_option('mt_title');
+	$mt_width = get_option('mt_width');
+	$mt_height = get_option('mt_height');
+	$mt_delay = get_option('mt_delay');
+	$mt_speed = get_option('mt_speed');
+	
+	if (@$_POST['mt_submit']) 
+	{
+		$mt_title = stripslashes($_POST['mt_title']);
+		$mt_width = stripslashes($_POST['mt_width']);
+		$mt_height = stripslashes($_POST['mt_height']);
+		$mt_delay = stripslashes($_POST['mt_delay']);
+		$mt_speed = stripslashes($_POST['mt_speed']);
+		
+		update_option('mt_title', $mt_title );
+		update_option('mt_width', $mt_width );
+		update_option('mt_height', $mt_height );
+		update_option('mt_delay', $mt_delay );
+		update_option('mt_speed', $mt_speed );
+	}
+	?>
   <form name="form_mt" method="post" action="">
     <table width="800" border="0" cellspacing="0" cellpadding="3">
       <tr>

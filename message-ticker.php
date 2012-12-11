@@ -4,31 +4,13 @@
 Plugin Name: message ticker
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Description: This plug-in will display the announcement or message with simple horizontal scroller or horizontal ticker.
-Version: 5.0
+Version: 6.0
 Author: Gopi.R
 Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Donate link: http://www.gopiplus.com/work/2010/07/18/message-ticker/
+License: GPLv2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
-
-/**
- *     message ticker
- *     Copyright (C) 2012  www.gopiplus.com
- *     http://www.gopiplus.com/work/2010/07/18/message-ticker/
- * 
- *     This program is free software: you can redistribute it and/or modify
- *     it under the terms of the GNU General Public License as published by
- *     the Free Software Foundation, either version 3 of the License, or
- *     (at your option) any later version.
- * 
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- *     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *     GNU General Public License for more details.
- * 
- *     You should have received a copy of the GNU General Public License
- *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 
 global $wpdb, $wp_version;
 define("WP_mt_TABLE", $wpdb->prefix . "mt_plugin");
@@ -89,29 +71,21 @@ function mt_show()
 
 function mt_deactivate() 
 {
-	//	delete_option('mt_title');
-	//	delete_option('mt_width');
-	//	delete_option('mt_height');
-	//	delete_option('mt_delay');
-	//	delete_option('mt_speed');
+	// No action required.
 }
 
-add_filter('the_content','mt_show_filter');
+add_shortcode( 'message-ticker', 'mt_shortcode' );
 
-function mt_show_filter($content)
-{
-	return 	preg_replace_callback('/\[MESSAGE-TICKER(.*?)\]/sim','mt_show_filter_callback',$content);
-}
-
-function mt_show_filter_callback($matches) 
+function mt_shortcode( $atts ) 
 {
 	global $wpdb;
 	$mt = "";
 	$mt_mt = "";
 	
-	$scode = $matches[1];
+	//$scode = $matches[1];
 	//[MESSAGE-TICKER:TYPE=PLUGIN]
 	
+	//[message-ticker type="plugin"]
 	$data = $wpdb->get_results("select mt_text from ".WP_mt_TABLE." where mt_status='YES' ORDER BY mt_order");
 	if ( ! empty($data) ) 
 	{
@@ -150,7 +124,6 @@ function mt_show_filter_callback($matches)
     $mt_mt = $mt_mt .'<div style="padding-top:5px;">';
     $mt_mt = $mt_mt .'<span id="mt_spancontant" style="position:absolute;'.$mt_width.$mt_height.'"></span> ';
     $mt_mt = $mt_mt .'</div>';
-    //$mt_mt = $mt_mt .'<script src="'.$siteurl.'/wp-content/plugins/message-ticker/message-ticker.js" type="text/javascript"><script> ';
     $mt_mt = $mt_mt .'<script type="text/javascript">' ;
     $mt_mt = $mt_mt .'var mt_contents=new Array(); ';
     $mt_mt = $mt_mt . $mt ;
