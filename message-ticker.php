@@ -4,7 +4,7 @@
 Plugin Name: message ticker
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Description: This plug-in will display the announcement or message with simple horizontal scroller or horizontal ticker.
-Version: 6.0
+Version: 7.0
 Author: Gopi.R
 Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Donate link: http://www.gopiplus.com/work/2010/07/18/message-ticker/
@@ -151,7 +151,7 @@ function mt_activation()
 			  PRIMARY KEY  (`mt_id`) )
 			");
 		$sSql = "INSERT INTO `". WP_mt_TABLE . "` (`mt_text`, `mt_order`, `mt_status`, `mt_date`)"; 
-		$sSql = $sSql . "VALUES ('This is sample text for message ticker. <br> Thanks & regards <br> Gopi.', '1', 'YES', '0000-00-00 00:00:00');";
+		$sSql = $sSql . "VALUES ('This is sample text for message ticker. <br> Thanks & regards', '1', 'YES', '0000-00-00 00:00:00');";
 		$wpdb->query($sSql);
 	}
 	add_option('mt_title', "Message");
@@ -165,7 +165,6 @@ function mt_admin_options()
 {
 	global $wpdb;
 	?>
-
 <div class="wrap">
   <?php
     $mainurl = get_option('siteurl')."/wp-admin/options-general.php?page=message-ticker/message-ticker.php";
@@ -354,7 +353,7 @@ function mt_control()
 	echo ' <a href="options-general.php?page=message-ticker/setting.php">';
 	echo 'click here</a></p>';
 	?>
-    Check official website for live demo and more information <a target="_blank" href='http://www.gopiplus.com/work/2010/07/18/message-ticker/'>click here</a>
+    Check official website for live demo and more information <a target="_blank" href="http://www.gopiplus.com/work/2010/07/18/message-ticker/">click here</a>
 	<?php
 }
 
