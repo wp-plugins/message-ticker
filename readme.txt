@@ -6,7 +6,7 @@ Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Tags: message, ticker, wordpress, plugin, widget
 Requires at least: 3.4
 Tested up to: 3.6
-Stable tag: 7.0
+Stable tag: 7.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -62,6 +62,14 @@ Q4. How to add the style to this ticker message?
 
 == Upgrade Notice ==
 
+= 7.1 =	
+
+After plugin upgrade, Please Deactivate and Activate the plugin once.
+
+1. Added few security features.
+2. New admin layout.
+3. Slight change in the short code, Please find the new short code in the post.
+
 = 7.0 =	
 
 Tested up to 3.6
@@ -92,6 +100,14 @@ Tested up to 3.0
 First version
 
 == Changelog ==
+
+= 7.1 =	
+
+After plugin upgrade, Please Deactivate and Activate the plugin once.
+
+1. Added few security features.
+2. New admin layout.
+3. Slight change in the short code, Please find the new short code in the post.
 
 = 7.0 =	
 

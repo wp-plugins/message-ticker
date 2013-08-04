@@ -44,21 +44,32 @@ function mt_submit()
 		document.form_mt.mt_order.focus();
 		return false;
 	}
+	else if(document.form_mt.mt_group.value == "" || document.form_mt.mt_group.value == "Select")
+	{
+		alert("Please select the message group.")
+		document.form_mt.mt_group.focus();
+		return false;
+	}
 	_mt_escapeVal(document.form_mt.mt_text,'<br>');
 }
 
-function _mt_delete(id)
+function mt_delete(id)
 {
 	if(confirm("Do you want to delete this record?"))
 	{
-		document.frm_hsa.action="options-general.php?page=message-ticker/message-ticker.php&AC=DEL&DID="+id;
-		document.frm_hsa.submit();
+		document.frm_mt_display.action="options-general.php?page=message-ticker&ac=del&did="+id;
+		document.frm_mt_display.submit();
 	}
 }	
 
-function _mt_redirect()
+function mt_redirect()
 {
-	window.location = "options-general.php?page=message-ticker/message-ticker.php";
+	window.location = "options-general.php?page=message-ticker";
+}
+
+function mt_help()
+{
+	window.open("http://www.gopiplus.com/work/2010/07/18/message-ticker/");
 }
 
 function _mt_escapeVal(textarea,replaceWith)

@@ -4,7 +4,7 @@
 Plugin Name: message ticker
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Description: This plug-in will display the announcement or message with simple horizontal scroller or horizontal ticker.
-Version: 7.0
+Version: 7.1
 Author: Gopi.R
 Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Donate link: http://www.gopiplus.com/work/2010/07/18/message-ticker/
@@ -14,6 +14,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 global $wpdb, $wp_version;
 define("WP_mt_TABLE", $wpdb->prefix . "mt_plugin");
+
+define("WP_mt_UNIQUE_NAME", "message-ticker");
+define("WP_mt_TITLE", "Message ticker");
+define('WP_mt_FAV', 'http://www.gopiplus.com/work/2010/07/18/message-ticker/');
+define('WP_mt_LINK', 'Check official website for more information <a target="_blank" href="'.WP_mt_FAV.'">click here</a>');
 
 function mt_show()
 {
@@ -56,7 +61,7 @@ function mt_show()
 	}
 	
 	?>
-    <div style="padding-top:5px;"> 
+    <div style="padding-top:5px;width:100%"> 
     <span id="mt_spancontant" style="position:absolute;<?php echo $mt_width.$mt_height; ?>"></span> 
     </div>
     <script type="text/javascript">
@@ -74,6 +79,15 @@ function mt_deactivate()
 	// No action required.
 }
 
+function mt_show_new( $group = "GROUP1", $width = "300", $height = "150" ) 
+{
+	$arr = array();
+	$arr["group"]=$group;
+	$arr["width"]=$width;
+	$arr["height"]=$height;
+	echo mt_shortcode($arr);
+}
+
 add_shortcode( 'message-ticker', 'mt_shortcode' );
 
 function mt_shortcode( $atts ) 
@@ -82,11 +96,23 @@ function mt_shortcode( $atts )
 	$mt = "";
 	$mt_mt = "";
 	
-	//$scode = $matches[1];
-	//[MESSAGE-TICKER:TYPE=PLUGIN]
+	//[message-ticker group="group1" width="300" height="150"]
+	if (! is_array( $atts ) )
+	{
+		return 'Please check your short code';
+	}
+	$group = $atts['group'];
+	$width = $atts['width'];
+	$height = $atts['height'];
 	
-	//[message-ticker type="plugin"]
-	$data = $wpdb->get_results("select mt_text from ".WP_mt_TABLE." where mt_status='YES' ORDER BY mt_order");
+	$sSql = "select mt_text from ".WP_mt_TABLE." where mt_status='YES'";
+	if($group <> "")
+	{
+		$sSql = $sSql . " and mt_group='$group'";
+	}
+	$sSql = $sSql . " ORDER BY mt_order";
+	
+	$data = $wpdb->get_results($sSql);
 	if ( ! empty($data) ) 
 	{
 		$count = 0; 
@@ -96,45 +122,54 @@ function mt_shortcode( $atts )
 			$mt = $mt . "mt_contents[$count]='$content';";
 			$count++;
 		}
+		
+		$mt_width = $width;
+		$mt_height = $height;
+		$mt_delay = get_option('mt_delay');
+		$mt_speed = get_option('mt_speed');
+		$siteurl = get_option('siteurl');
+		
+		if(!is_numeric($mt_delay)){ $mt_delay = 3000;} 
+		if(!is_numeric($mt_speed)){ $mt_speed = 5;} 
+		
+		if(!is_numeric($mt_width))
+		{ 
+			$mt_width = "";
+		}
+		else 
+		{
+			$mt_width = "width:".$mt_width."px;";
+			//$mt_width = "width:100%;";
+		}
+		
+		if(!is_numeric($mt_height))
+		{ 
+			$mt_height = "";
+		}
+		else 
+		{
+			$mt_height = "height:".$mt_height."px;";
+		}
+		
+		$mt_mt = $mt_mt .'<div style="padding-top:5px;">';
+		$mt_mt = $mt_mt .'<span id="mt_spancontant" style="position:absolute;'.$mt_width.$mt_height.'"></span> ';
+		$mt_mt = $mt_mt .'</div>';
+		$mt_mt = $mt_mt .'<script type="text/javascript">' ;
+		$mt_mt = $mt_mt .'var mt_contents=new Array(); ';
+		$mt_mt = $mt_mt . $mt ;
+		$mt_mt = $mt_mt .'var mt_delay='.$mt_delay.'; ';
+		$mt_mt = $mt_mt .'var mt_speed='.$mt_speed.'; ';
+		$mt_mt = $mt_mt .'mt_start(); ';
+		$mt_mt = $mt_mt .'</script>';
+	}
+	else
+	{
+		$mt_mt = "No message available, Please check your group.";
 	}
 	
-	$mt_width = get_option('mt_width');
-	$mt_height = get_option('mt_height');
-	$mt_delay = get_option('mt_delay');
-	$mt_speed = get_option('mt_speed');
-	$siteurl = get_option('siteurl');
-	
-	if(!is_numeric($mt_delay)){ $mt_delay = 3000;} 
-	if(!is_numeric($mt_speed)){ $mt_speed = 5;} 
-	
-	if(!is_numeric($mt_width)){ 
-		$mt_width = "";
-	}
-	else {
-		$mt_width = "width:".$mt_width."px;";
-	}
-	
-	if(!is_numeric($mt_height)){ 
-		$mt_height = "";
-	}
-	else {
-		$mt_height = "height:".$mt_height."px;";
-	}
-	
-    $mt_mt = $mt_mt .'<div style="padding-top:5px;">';
-    $mt_mt = $mt_mt .'<span id="mt_spancontant" style="position:absolute;'.$mt_width.$mt_height.'"></span> ';
-    $mt_mt = $mt_mt .'</div>';
-    $mt_mt = $mt_mt .'<script type="text/javascript">' ;
-    $mt_mt = $mt_mt .'var mt_contents=new Array(); ';
-    $mt_mt = $mt_mt . $mt ;
-    $mt_mt = $mt_mt .'var mt_delay='.$mt_delay.'; ';
-    $mt_mt = $mt_mt .'var mt_speed='.$mt_speed.'; ';
-    $mt_mt = $mt_mt .'mt_start(); ';
-    $mt_mt = $mt_mt .'</script>';
-
 	return $mt_mt;
-	
 }
+
 function mt_activation() 
 {
 	global $wpdb;
@@ -154,9 +189,12 @@ function mt_activation()
 		$sSql = $sSql . "VALUES ('This is sample text for message ticker. <br> Thanks & regards', '1', 'YES', '0000-00-00 00:00:00');";
 		$wpdb->query($sSql);
 	}
+	$sSql = "ALTER TABLE `". WP_mt_TABLE . "` ADD `mt_group` VARCHAR( 100 ) NOT NULL ";
+	$wpdb->query($sSql);
+	
 	add_option('mt_title', "Message");
-	add_option('mt_width', "175");
-	add_option('mt_height', "85");
+	add_option('mt_width', "200");
+	add_option('mt_height', "100");
 	add_option('mt_delay', "3000");
 	add_option('mt_speed', "5");
 }
@@ -164,172 +202,27 @@ function mt_activation()
 function mt_admin_options() 
 {
 	global $wpdb;
-	?>
-<div class="wrap">
-  <?php
-    $mainurl = get_option('siteurl')."/wp-admin/options-general.php?page=message-ticker/message-ticker.php";
-
-    $DID=@$_GET["DID"];
-    $AC=@$_GET["AC"];
-    $submittext = "Insert Message";
-
-	if($AC <> "DEL" and trim(@$_POST['mt_text']) <>"")
-    {
-			if($_POST['mt_id'] == "" )
-			{
-					$sql = "insert into ".WP_mt_TABLE.""
-					. " set `mt_text` = '" . mysql_real_escape_string(trim($_POST['mt_text']))
-					. "', `mt_order` = '" . $_POST['mt_order']
-					. "', `mt_status` = '" . $_POST['mt_status']
-					. "'";	
-			}
-			else
-			{
-					$sql = "update ".WP_mt_TABLE.""
-					. " set `mt_text` = '" . mysql_real_escape_string(trim($_POST['mt_text']))
-					. "', `mt_order` = '" . $_POST['mt_order']
-					. "', `mt_status` = '" . $_POST['mt_status']
-					. "' where `mt_id` = '" . $_POST['mt_id'] 
-					. "'";	
-			}
-			$wpdb->get_results($sql);
-    }
-    
-    if($AC=="DEL" && $DID > 0)
-    {
-        $wpdb->get_results("delete from ".WP_mt_TABLE." where mt_id=".$DID);
-    }
-    
-    if($DID<>"" and $AC <> "DEL")
-    {
-        //select query
-        $data = $wpdb->get_results("select * from ".WP_mt_TABLE." where mt_id=$DID limit 1");
-    
-        //bad feedback
-        if ( empty($data) ) 
-        {
-           echo "<div id='message' class='error'><p>No data available! use below form to create!</p></div>";
-            return;
-        }
-        
-        $data = $data[0];
-        
-        //encode strings
-        if ( !empty($data) ) $mt_id_x = htmlspecialchars(stripslashes($data->mt_id)); 
-        if ( !empty($data) ) $mt_text_x = htmlspecialchars(stripslashes($data->mt_text));
-        if ( !empty($data) ) $mt_status_x = htmlspecialchars(stripslashes($data->mt_status));
-		if ( !empty($data) ) $mt_order_x = htmlspecialchars(stripslashes($data->mt_order));
-        
-        $submittext = "Update Message";
-    }
-    ?>
-  <h2>Message ticker</h2>
-  
-  <script language="JavaScript" src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/message-ticker/setting.js"></script>
-  <script language="javascript" type="text/javascript" src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/message-ticker/noenter.js"></script>
-  <form name="form_mt" method="post" action="<?php echo @$mainurl; ?>" onsubmit="return mt_submit()"  >
-    <table width="100%">
-      <tr>
-        <td colspan="3" align="left" valign="middle">Enter the message:</td>
-      </tr>
-      <tr>
-        <td colspan="2" align="left" valign="middle"><textarea name="mt_text" cols="90" rows="8" id="mt_text"><?php echo @$mt_text_x; ?></textarea></td>
-        <td width="17%" rowspan="3" align="center" valign="top"></td>
-      </tr>
-      <tr>
-        <td align="left" valign="middle">Display Status:</td>
-        <td align="left" valign="middle">Display Order:</td>
-      </tr>
-      <tr>
-        <td width="20%" align="left" valign="middle"><select name="mt_status" id="mt_status">
-            <option value="">Select</option>
-            <option value='YES' <?php if(@$mt_status_x=='YES') { echo 'selected' ; } ?>>Yes</option>
-            <option value='NO' <?php if(@$mt_status_x=='NO') { echo 'selected' ; } ?>>No</option>
-          </select>        </td>
-        <td width="63%" align="left" valign="middle"><input name="mt_order" type="text" id="mt_order" size="10" value="<?php echo @$mt_order_x; ?>" maxlength="3" /></td>
-      </tr>
-      <tr>
-        <td height="35" colspan="3" align="left" valign="bottom"><input name="publish" lang="publish" class="button-primary" value="<?php echo @$submittext?>" type="submit" />
-          <input name="publish" lang="publish" class="button-primary" onclick="_mt_redirect()" value="Cancel" type="button" /> 
-          (enter key not allowed, use &lt;br&gt; tag to break line) </td>
-      </tr>
-      <input name="mt_id" id="mt_id" type="hidden" value="<?php echo @$mt_id_x; ?>">
-    </table>
-  </form>
-<div align="right" style="padding-top:0px;padding:5px;"> 
-<input name="text_management" lang="text_management" class="button-primary" onClick="location.href='options-general.php?page=message-ticker/message-ticker.php'" value="Text management page" type="button" />
-<input name="setting_management" lang="setting_management" class="button-primary" onClick="location.href='options-general.php?page=message-ticker/setting.php'" value="Ticker setting page" type="button" />
-<input name="Help" lang="publish" class="button-primary" onclick="window.open('http://www.gopiplus.com/work/2010/07/18/message-ticker/');" value="Help" type="button" />
-</div>
-
-  <div class="tool-box">
-    <?php
-	$data = $wpdb->get_results("select * from ".WP_mt_TABLE." order by mt_order");
-	if ( empty($data) ) 
-	{ 
-		echo "<div id='message' class='error'>No data available! use below form to create!</div>";
-		return;
+	$current_page = isset($_GET['ac']) ? $_GET['ac'] : '';
+	switch($current_page)
+	{
+		case 'edit':
+			include('pages/content-management-edit.php');
+			break;
+		case 'add':
+			include('pages/content-management-add.php');
+			break;
+		case 'set':
+			include('pages/content-setting.php');
+			break;
+		default:
+			include('pages/content-management-show.php');
+			break;
 	}
-	?>
-    <form name="frm_hsa" method="post">
-      <table width="100%" class="widefat" id="straymanage">
-        <thead>
-          <tr>
-            <th width="4%" align="left" scope="col">ID
-              </td>
-            <th width="68%" align="left" scope="col">Message
-              </td>
-            <th width="8%" align="left" scope="col"> Order
-              </td>
-            <th width="7%" align="left" scope="col">Display
-              </td>
-            <th width="13%" align="left" scope="col">Action
-              </td>
-          </tr>
-        </thead>
-        <?php 
-        $i = 0;
-        foreach ( $data as $data ) { 
-		if($data->mt_status=='YES') { $displayisthere="True"; }
-        ?>
-        <tbody>
-          <tr class="<?php if ($i&1) { echo'alternate'; } else { echo ''; }?>">
-            <td align="left" valign="middle"><?php echo(stripslashes($data->mt_id)); ?></td>
-            <td align="left" valign="middle"><?php echo(stripslashes($data->mt_text)); ?></td>
-            <td align="left" valign="middle"><?php echo(stripslashes($data->mt_order)); ?></td>
-            <td align="left" valign="middle"><?php echo(stripslashes($data->mt_status)); ?></td>
-            <td align="left" valign="middle"><a href="options-general.php?page=message-ticker/message-ticker.php&DID=<?php echo($data->mt_id); ?>">Edit</a> &nbsp; <a onClick="javascript:_mt_delete('<?php echo($data->mt_id); ?>')" href="javascript:void(0);">Delete</a> </td>
-          </tr>
-        </tbody>
-        <?php $i = $i+1; } ?>
-        <?php if($displayisthere<>"True") { ?>
-        <tr>
-          <td colspan="5" align="center" style="color:#FF0000" valign="middle">No message available with display status 'Yes'!' </td>
-        </tr>
-        <?php } ?>
-      </table>
-    </form>
-<div align="right" style="padding-top:0px;padding:5px;"> 
-<input name="text_management" lang="text_management" class="button-primary" onClick="location.href='options-general.php?page=message-ticker/message-ticker.php'" value="Text management page" type="button" />
-<input name="setting_management" lang="setting_management" class="button-primary" onClick="location.href='options-general.php?page=message-ticker/setting.php'" value="Ticker setting page" type="button" />
-<input name="Help" lang="publish" class="button-primary" onclick="window.open('http://www.gopiplus.com/work/2010/07/18/message-ticker/');" value="Help" type="button" />
-</div>
-    <h2>Plugin configuration</h2>
-    <ol>
-        <li>Drag and drop the widget.</li>
-        <li>Add directly in the theme.</li>
-        <li>Short code option for pages/posts.</li>
-    </ol>
-    Check official website for live demo and more information <a target="_blank" href='http://www.gopiplus.com/work/2010/07/18/message-ticker/'>click here</a><br>
-  </div>
-</div>
-<?php
 }
 
 function mt_add_to_menu() 
 {
-	add_options_page('Message ticker', 'Message ticker', 'manage_options', __FILE__, 'mt_admin_options' );
-	add_options_page('Message ticker', '', 'manage_options', 'message-ticker/setting.php','' );
+	add_options_page('Message ticker', 'Message ticker', 'manage_options', 'message-ticker', 'mt_admin_options' );
 }
 
 if (is_admin()) 
@@ -350,7 +243,7 @@ function mt_widget($args)
 function mt_control()
 {
 	echo '<p>Message ticker.<br><br> To change the setting goto message ticker link under setting menu.<br>';
-	echo ' <a href="options-general.php?page=message-ticker/setting.php">';
+	echo ' <a href="options-general.php?page=message-ticker">';
 	echo 'click here</a></p>';
 	?>
     Check official website for live demo and more information <a target="_blank" href="http://www.gopiplus.com/work/2010/07/18/message-ticker/">click here</a>
