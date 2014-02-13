@@ -18,7 +18,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 	
 	if ($result != '1')
 	{
-		?><div class="error fade"><p><strong>Oops, selected details doesn't exist (1).</strong></p></div><?php
+		?><div class="error fade"><p><strong><?php _e('Oops, selected details doesnt exist.', 'message-ticker'); ?></strong></p></div><?php
 	}
 	else
 	{
@@ -36,7 +36,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 			
 			//	Set success message
 			$mt_success_msg = TRUE;
-			$mt_success = __('Selected record was successfully deleted.', WP_mt_UNIQUE_NAME);
+			$mt_success = __('Selected record was successfully deleted.', 'message-ticker');
 		}
 	}
 	
@@ -48,32 +48,32 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 ?>
 <div class="wrap">
   <div id="icon-edit" class="icon32 icon32-posts-post"></div>
-    <h2><?php echo WP_mt_TITLE ?><a class="add-new-h2" href="<?php echo get_option('siteurl'); ?>/wp-admin/options-general.php?page=message-ticker&amp;ac=add">Add New</a></h2>
+    <h2><?php _e('message ticker', 'message-ticker'); ?><a class="add-new-h2" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=add"><?php _e('Add New', 'message-ticker'); ?></a></h2>
     <div class="tool-box">
 	<?php
 		$sSql = "SELECT * FROM `".WP_mt_TABLE."` order by mt_id";
 		$myData = array();
 		$myData = $wpdb->get_results($sSql, ARRAY_A);
 		?>
-		<script language="JavaScript" src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/message-ticker/pages/setting.js"></script>
+		<script language="JavaScript" src="<?php echo WP_mt_PLUGIN_URL; ?>/pages/setting.js"></script>
 		<form name="frm_mt_display" method="post">
       <table width="100%" class="widefat" id="straymanage">
         <thead>
           <tr>
             <th class="check-column" scope="row"><input type="checkbox" /></th>
-			<th scope="col">Text</th>
-            <th scope="col">Order</th>
-			<th scope="col">Display</th>
-			<th scope="col">Group</th>
+			<th scope="col"><?php _e('Text', 'message-ticker'); ?></th>
+            <th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
+			<th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
+			<th scope="col"><?php _e('Group', 'message-ticker'); ?></th>
           </tr>
         </thead>
 		<tfoot>
           <tr>
             <th class="check-column" scope="row"><input type="checkbox" /></th>
-			<th scope="col">Text</th>
-            <th scope="col">Order</th>
-			<th scope="col">Display</th>
-			<th scope="col">Group</th>
+			<th scope="col"><?php _e('Text', 'message-ticker'); ?></th>
+            <th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
+			<th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
+			<th scope="col"><?php _e('Group', 'message-ticker'); ?></th>
           </tr>
         </tfoot>
 		<tbody>
@@ -88,8 +88,8 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 						<td align="left"><input type="checkbox" value="<?php echo $data['mt_id']; ?>" name="mt_group_item[]"></td>
 						<td><?php echo stripslashes($data['mt_text']); ?>
 						<div class="row-actions">
-							<span class="edit"><a title="Edit" href="<?php echo get_option('siteurl'); ?>/wp-admin/options-general.php?page=message-ticker&amp;ac=edit&amp;did=<?php echo $data['mt_id']; ?>">Edit</a> | </span>
-							<span class="trash"><a onClick="javascript:mt_delete('<?php echo $data['mt_id']; ?>')" href="javascript:void(0);">Delete</a></span> 
+						<span class="edit"><a title="Edit" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=edit&amp;did=<?php echo $data['mt_id']; ?>"><?php _e('Edit', 'message-ticker'); ?></a> | </span>
+						<span class="trash"><a onClick="javascript:mt_delete('<?php echo $data['mt_id']; ?>')" href="javascript:void(0);"><?php _e('Delete', 'message-ticker'); ?></a></span> 
 						</div>
 						</td>
 						<td><?php echo stripslashes($data['mt_order']); ?></td>
@@ -102,7 +102,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 			}
 			else
 			{
-				?><tr><td colspan="5" align="center">No records available.</td></tr><?php 
+				?><tr><td colspan="5" align="center"><?php _e('No records available.', 'message-ticker'); ?></td></tr><?php 
 			}
 			?>
 		</tbody>
@@ -112,18 +112,21 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
       </form>	
 	  <div class="tablenav">
 	  <h2>
-	  <a class="button add-new-h2" href="<?php echo get_option('siteurl'); ?>/wp-admin/options-general.php?page=message-ticker&amp;ac=add">Add new</a>
-	  <a class="button add-new-h2" href="<?php echo get_option('siteurl'); ?>/wp-admin/options-general.php?page=message-ticker&amp;ac=set">Setting management</a>
-	  <a class="button add-new-h2" target="_blank" href="<?php echo WP_mt_FAV; ?>">Help</a>
+	  <a class="button add-new-h2" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=add"><?php _e('Add New', 'message-ticker'); ?></a>
+	  <a class="button add-new-h2" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=set"><?php _e('Setting Management', 'message-ticker'); ?></a>
+	  <a class="button add-new-h2" target="_blank" href="<?php echo WP_mt_FAV; ?>"><?php _e('Help', 'message-ticker'); ?></a>
 	  </h2>
 	  </div>
 		<div style="height:5px"></div>
-		<h3>Plugin configuration option</h3>
+		<h3><?php _e('Plugin configuration option', 'message-ticker'); ?></h3>
 		<ol>
-			<li>Add the plugin in the posts or pages using short code.</li>
-			<li>Add directly in to the theme using PHP code.</li>
-			<li>Drag and drop the widget to your sidebar.</li>
+			<li><?php _e('Add the plugin in the posts or pages using short code.', 'message-ticker'); ?></li>
+			<li><?php _e('Add directly in to the theme using PHP code.', 'message-ticker'); ?></li>
+			<li><?php _e('Drag and drop the widget to your sidebar.', 'message-ticker'); ?></li>
 		</ol>
-		<p class="description"><?php echo WP_mt_LINK; ?></p>
+		<p class="description">
+			<?php _e('Check official website for more information', 'message-ticker'); ?>
+			<a target="_blank" href="<?php echo WP_mt_FAV; ?>"><?php _e('click here', 'message-ticker'); ?></a>
+		</p>
 	</div>
 </div>

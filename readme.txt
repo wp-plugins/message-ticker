@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Tags: message, ticker, wordpress, plugin, widget
 Requires at least: 3.4
-Tested up to: 3.6
-Stable tag: 7.1
+Tested up to: 3.8
+Stable tag: 7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -54,13 +54,19 @@ Q4. How to add the style to this ticker message?
 
 == Screenshots ==
 
-1. http://www.gopiplus.com/work/2010/07/18/message-ticker/
+1. Front Scree. http://www.gopiplus.com/work/2010/07/18/message-ticker/
 
-2. http://www.gopiplus.com/work/2010/07/18/message-ticker/
+2. Admin Screen. http://www.gopiplus.com/work/2010/07/18/message-ticker/
 
-3. http://www.gopiplus.com/work/2010/07/18/message-ticker/
+3. Admin Screen. http://www.gopiplus.com/work/2010/07/18/message-ticker/
 
 == Upgrade Notice ==
+
+= 7.2 =	 
+
+1. Tested up to 3.8
+2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
+Plugin *.po file (message-ticker.po) available in the languages folder.
 
 = 7.1 =	
 
@@ -100,6 +106,12 @@ Tested up to 3.0
 First version
 
 == Changelog ==
+
+= 7.2 =	 
+
+1. Tested up to 3.8
+2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
+Plugin *.po file (message-ticker.po) available in the languages folder.
 
 = 7.1 =	
 

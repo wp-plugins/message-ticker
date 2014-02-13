@@ -22,21 +22,21 @@ if (isset($_POST['mt_form_submit']) && $_POST['mt_form_submit'] == 'yes')
 	$form['mt_text'] = isset($_POST['mt_text']) ? $_POST['mt_text'] : '';
 	if ($form['mt_text'] == '')
 	{
-		$mt_errors[] = __('Please enter the text.', WP_mt_UNIQUE_NAME);
+		$mt_errors[] = __('Please enter the text.', 'message-ticker');
 		$mt_error_found = TRUE;
 	}
 
 	$form['mt_order'] = isset($_POST['mt_order']) ? $_POST['mt_order'] : '';
 	if ($form['mt_order'] == '')
 	{
-		$mt_errors[] = __('Please enter the display order, only number.', WP_mt_UNIQUE_NAME);
+		$mt_errors[] = __('Please enter the display order, only number.', 'message-ticker');
 		$mt_error_found = TRUE;
 	}
 
 	$form['mt_status'] = isset($_POST['mt_status']) ? $_POST['mt_status'] : '';
 	if ($form['mt_status'] == '')
 	{
-		$mt_errors[] = __('Please select the display status.', WP_mt_UNIQUE_NAME);
+		$mt_errors[] = __('Please select the display status.', 'message-ticker');
 		$mt_error_found = TRUE;
 	}
 	
@@ -54,7 +54,7 @@ if (isset($_POST['mt_form_submit']) && $_POST['mt_form_submit'] == 'yes')
 		
 		$wpdb->query($sql);
 		
-		$mt_success = __('New details was successfully added.', WP_mt_UNIQUE_NAME);
+		$mt_success = __('New details was successfully added.', 'message-ticker');
 		
 		// Reset the form fields
 		$form = array(
@@ -79,35 +79,35 @@ if ($mt_error_found == FALSE && strlen($mt_success) > 0)
 {
 	?>
 	<div class="updated fade">
-		<p><strong><?php echo $mt_success; ?> <a href="<?php echo get_option('siteurl'); ?>/wp-admin/options-general.php?page=message-ticker">Click here</a> to view the details</strong></p>
+		<p><strong><?php echo $mt_success; ?> <a href="<?php echo WP_mt_ADMIN_URL; ?>"><?php _e('Click here to view the details', 'message-ticker'); ?></a></strong></p>
 	</div>
 	<?php
 }
 ?>
-<script language="JavaScript" src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/message-ticker/pages/setting.js"></script>
-<script language="JavaScript" src="<?php echo get_option('siteurl'); ?>/wp-content/plugins/message-ticker/pages/noenter.js"></script>
+<script language="JavaScript" src="<?php echo WP_mt_PLUGIN_URL; ?>/pages/setting.js"></script>
+<script language="JavaScript" src="<?php echo WP_mt_PLUGIN_URL; ?>/pages/noenter.js"></script>
 <div class="form-wrap">
 	<div id="icon-edit" class="icon32 icon32-posts-post"><br></div>
-	<h2><?php echo WP_mt_TITLE; ?></h2>
+	<h2><?php _e('message ticker', 'message-ticker'); ?></h2>
 	<form name="form_mt" method="post" action="#" onsubmit="return mt_submit()"  >
-      <h3>Add details</h3>
+      <h3><?php _e('Add details', 'message-ticker'); ?></h3>
       
-		<label for="tag-title">Enter the message/announcement</label>
+		<label for="tag-title"><?php _e('Enter the message/announcement', 'message-ticker'); ?></label>
 		<textarea name="mt_text" cols="110" rows="6" id="mt_text"></textarea>
-		<p>Please enter your message. Enter &lt;br&gt; to line break. </p>
+		<p><?php _e('Please enter your message. Enter &lt;br&gt; to line break.', 'message-ticker'); ?></p>
 		
-		<label for="tag-title">Display status</label>
+		<label for="tag-title"><?php _e('Display status', 'message-ticker'); ?></label>
 		<select name="mt_status" id="mt_status">
 			<option value='YES'>Yes</option>
 			<option value='NO'>No</option>
 		</select>
-		<p>Do you want to show this announcement in your scroll?</p>
+		<p><?php _e('Do you want to show this announcement in your scroll?', 'message-ticker'); ?></p>
 		
-		<label for="tag-title">Display order</label>
+		<label for="tag-title"><?php _e('Display order', 'message-ticker'); ?></label>
 		<input name="mt_order" type="text" id="mt_order" value="" maxlength="3" />
-		<p>What order should this announcement be played in. should it come 1st, 2nd, 3rd, etc..</p>
+		<p><?php _e('What order should this announcement be played in. should it come 1st, 2nd, 3rd, etc..', 'message-ticker'); ?></p>
 		
-		<label for="tag-title">Message group</label>
+		<label for="tag-title"><?php _e('Message group', 'message-ticker'); ?></label>
 		<select name="mt_group" id="mt_group">
 		<option value='Select'>Select</option>
 		<?php
@@ -132,17 +132,20 @@ if ($mt_error_found == FALSE && strlen($mt_success) > 0)
 		}
 		?>
 		</select>
-		<p>Please select your announcement group.</p>
+		<p><?php _e('Please select your announcement group.', 'message-ticker'); ?></p>
 					
       <input name="mt_id" id="mt_id" type="hidden" value="">
       <input type="hidden" name="mt_form_submit" value="yes"/>
       <p class="submit">
-        <input name="publish" lang="publish" class="button add-new-h2" value="Submit" type="submit" />&nbsp;
-        <input name="publish" lang="publish" class="button add-new-h2" onclick="mt_redirect()" value="Cancel" type="button" />&nbsp;
-        <input name="Help" lang="publish" class="button add-new-h2" onclick="mt_help()" value="Help" type="button" />
+        <input name="publish" lang="publish" class="button add-new-h2" value="<?php _e('Submit', 'message-ticker'); ?>" type="submit" />&nbsp;
+        <input name="publish" lang="publish" class="button add-new-h2" onclick="mt_redirect()" value="<?php _e('Cancel', 'message-ticker'); ?>" type="button" />&nbsp;
+        <input name="Help" lang="publish" class="button add-new-h2" onclick="mt_help()" value="<?php _e('Help', 'message-ticker'); ?>" type="button" />
       </p>
 	  <?php wp_nonce_field('mt_form_add'); ?>
     </form>
 </div>
-<p class="description"><?php echo WP_mt_LINK; ?></p>
+<p class="description">
+	<?php _e('Check official website for more information', 'message-ticker'); ?>
+	<a target="_blank" href="<?php echo WP_mt_FAV; ?>"><?php _e('click here', 'message-ticker'); ?></a>
+</p>
 </div>
