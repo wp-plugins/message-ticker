@@ -17,7 +17,6 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
  
- 
 function mt_submit()
 {
 	if(document.form_mt.mt_text.value=="")
