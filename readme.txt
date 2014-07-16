@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Tags: message, ticker, wordpress, plugin, widget
 Requires at least: 3.4
-Tested up to: 3.9
-Stable tag: 7.3
+Tested up to: 3.9.1
+Stable tag: 7.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -62,6 +62,11 @@ Q4. How to add the style to this ticker message?
 
 == Upgrade Notice ==
 
+= 7.4 =
+
+1. Added expiration date option for messages.
+2. Added option (In setting page) to change default text when no message available or all messages are expire
+
 = 7.3 =	 
 
 1. Tested up to 3.9
@@ -111,6 +116,11 @@ Tested up to 3.0
 First version
 
 == Changelog ==
+
+= 7.4 =
+
+1. Added expiration date option for messages.
+2. Added option (In setting page) to change default text when no message available or all messages are expired.
 
 = 7.3 =	 
 

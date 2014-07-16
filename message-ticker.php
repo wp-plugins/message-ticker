@@ -3,7 +3,7 @@
 Plugin Name: message ticker
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Description: This plug-in will display the announcement or message with simple horizontal scroller or horizontal ticker.
-Version: 7.3
+Version: 7.4
 Author: Gopi Ramasamy
 Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Donate link: http://www.gopiplus.com/work/2010/07/18/message-ticker/
@@ -37,7 +37,11 @@ function mt_show()
 	global $wpdb;
 	$mt = "";
 	
-	$data = $wpdb->get_results("select mt_text from ".WP_mt_TABLE." where mt_status='YES' ORDER BY mt_order");
+	$sSql = "select mt_text from ".WP_mt_TABLE." where mt_status='YES'";
+	$sSql = $sSql . " and ( mt_date >= NOW() or mt_date = '0000-00-00 00:00:00' )";
+	$sSql = $sSql . " Order by mt_order";
+	
+	$data = $wpdb->get_results($sSql);
 	if ( ! empty($data) ) 
 	{
 		$count = 0; 
@@ -89,7 +93,8 @@ function mt_show()
 	}
 	else
 	{
-		_e('No message available, Please check your group.', 'message-ticker');
+		$mt_mt = get_option('mt_defaulttext');
+		echo $mt_mt;
 	}
 }
 
@@ -129,6 +134,7 @@ function mt_shortcode( $atts )
 	{
 		$sSql = $sSql . " and mt_group='$group'";
 	}
+	$sSql = $sSql . " and ( mt_date >= NOW() or mt_date = '0000-00-00 00:00:00' )";
 	$sSql = $sSql . " ORDER BY mt_order";
 	
 	$data = $wpdb->get_results($sSql);
@@ -183,7 +189,7 @@ function mt_shortcode( $atts )
 	}
 	else
 	{
-		$mt_mt = __('No message available, Please check your group.', 'message-ticker');
+		$mt_mt = get_option('mt_defaulttext');
 	}
 	
 	return $mt_mt;
@@ -214,6 +220,7 @@ function mt_activation()
 	add_option('mt_height', "100");
 	add_option('mt_delay', "3000");
 	add_option('mt_speed', "5");
+	add_option('mt_defaulttext', "No message available, Or messages are expired already.");
 }
 
 function mt_admin_options() 

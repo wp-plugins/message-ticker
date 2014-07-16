@@ -10,6 +10,7 @@
 	$mt_height = get_option('mt_height');
 	$mt_delay = get_option('mt_delay');
 	$mt_speed = get_option('mt_speed');
+	$mt_defaulttext = get_option('mt_defaulttext');
 	
 	if (isset($_POST['mt_submit'])) 
 	{
@@ -21,12 +22,14 @@
 		$mt_height = stripslashes($_POST['mt_height']);
 		$mt_delay = stripslashes($_POST['mt_delay']);
 		$mt_speed = stripslashes($_POST['mt_speed']);
+		$mt_defaulttext = stripslashes($_POST['mt_defaulttext']);
 		
 		update_option('mt_title', $mt_title );
 		update_option('mt_width', $mt_width );
 		update_option('mt_height', $mt_height );
 		update_option('mt_delay', $mt_delay );
 		update_option('mt_speed', $mt_speed );
+		update_option('mt_defaulttext', $mt_defaulttext );
 		
 		?>
 		<div class="updated fade">
@@ -59,10 +62,10 @@
 		<input name="mt_speed" type="text" value="<?php echo $mt_speed; ?>"  id="mt_speed" maxlength="5">
 		<p><?php _e('Please enter your ticker speed.', 'message-ticker'); ?> (Example: 5)</p>
 		
-		<label for="tag-width"></label>
-		
-		<p></p>
-		
+		<label for="tag-width"><?php _e('No message text', 'message-ticker'); ?></label>
+		<input name="mt_defaulttext" type="text" value="<?php echo $mt_defaulttext; ?>"  id="mt_defaulttext" size="70" maxlength="500">
+		<p><?php _e('This text will be display, if no announcement available or all announcement expired.', 'message-ticker'); ?> (Example: 5)</p>
+			
 		<p class="submit">
 		<input name="mt_submit" id="mt_submit" class="button" value="<?php _e('Submit', 'message-ticker'); ?>" type="submit" />
 		<input name="publish" lang="publish" class="button" onclick="mt_redirect()" value="<?php _e('Cancel', 'message-ticker'); ?>" type="button" />

@@ -39,7 +39,8 @@ else
 		'mt_text' => $data['mt_text'],
 		'mt_order' => $data['mt_order'],
 		'mt_status' => $data['mt_status'],
-		'mt_group' => $data['mt_group']
+		'mt_group' => $data['mt_group'],
+		'mt_date' => $data['mt_date']
 	);
 }
 // Form submitted, check the data
@@ -71,6 +72,7 @@ if (isset($_POST['mt_form_submit']) && $_POST['mt_form_submit'] == 'yes')
 	
 	$form['mt_link'] = isset($_POST['mt_link']) ? $_POST['mt_link'] : '';
 	$form['mt_group'] = isset($_POST['mt_group']) ? $_POST['mt_group'] : '';
+	$form['mt_date'] = isset($_POST['mt_date']) ? $_POST['mt_date'] : '9999-12-31';
 
 	//	No errors found, we can add this Group to the table
 	if ($mt_error_found == FALSE)
@@ -80,10 +82,11 @@ if (isset($_POST['mt_form_submit']) && $_POST['mt_form_submit'] == 'yes')
 				SET `mt_text` = %s,
 				`mt_order` = %s,
 				`mt_status` = %s,
-				`mt_group` = %s
+				`mt_group` = %s,
+				`mt_date` = %s
 				WHERE mt_id = %d
 				LIMIT 1",
-				array($form['mt_text'], $form['mt_order'], $form['mt_status'], $form['mt_group'], $did)
+				array($form['mt_text'], $form['mt_order'], $form['mt_status'], $form['mt_group'], $form['mt_date'], $did)
 			);
 		$wpdb->query($sSql);
 		
@@ -163,6 +166,10 @@ if ($mt_error_found == FALSE && strlen($mt_success) > 0)
 	?>
 	</select>
 	<p><?php _e('Please select your announcement group.', 'message-ticker'); ?></p>
+	
+		<label for="tag-title"><?php _e('Expiration date', 'message-ticker'); ?></label>
+		<input name="mt_date" type="text" id="mt_date" value="<?php echo substr($form['mt_date'],0,10); ?>" maxlength="10" />
+		<p><?php _e('Please enter the expiration date in this format YYYY-MM-DD <br /> 9999-12-31 : Is equal to no expire.', 'message-ticker'); ?></p>
 	  
       <input name="mt_id" id="mt_id" type="hidden" value="<?php echo $form['mt_id']; ?>">
       <input type="hidden" name="mt_form_submit" value="yes"/>

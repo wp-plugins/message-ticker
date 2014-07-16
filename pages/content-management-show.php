@@ -66,6 +66,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
             <th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
 			<th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
 			<th scope="col"><?php _e('Group', 'message-ticker'); ?></th>
+			<th scope="col"><?php _e('Expiration', 'message-ticker'); ?></th>
           </tr>
         </thead>
 		<tfoot>
@@ -75,6 +76,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
             <th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
 			<th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
 			<th scope="col"><?php _e('Group', 'message-ticker'); ?></th>
+			<th scope="col"><?php _e('Expiration', 'message-ticker'); ?></th>
           </tr>
         </tfoot>
 		<tbody>
@@ -96,6 +98,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 						<td><?php echo stripslashes($data['mt_order']); ?></td>
 						<td><?php echo stripslashes($data['mt_status']); ?></td>
 						<td><?php echo stripslashes($data['mt_group']); ?></td>
+						<td><?php echo substr($data['mt_date'],0,10); ?></td>
 					</tr>
 					<?php 
 					$i = $i+1; 
@@ -103,7 +106,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 			}
 			else
 			{
-				?><tr><td colspan="5" align="center"><?php _e('No records available.', 'message-ticker'); ?></td></tr><?php 
+				?><tr><td colspan="6" align="center"><?php _e('No records available.', 'message-ticker'); ?></td></tr><?php 
 			}
 			?>
 		</tbody>
@@ -114,7 +117,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 	  <div class="tablenav">
 	  <h2>
 	  <a class="button add-new-h2" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=add"><?php _e('Add New', 'message-ticker'); ?></a>
-	  <a class="button add-new-h2" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=set"><?php _e('Setting Management', 'message-ticker'); ?></a>
+	  <a class="button add-new-h2" href="<?php echo WP_mt_ADMIN_URL; ?>&amp;ac=set"><?php _e('Setting', 'message-ticker'); ?></a>
 	  <a class="button add-new-h2" target="_blank" href="<?php echo WP_mt_FAV; ?>"><?php _e('Help', 'message-ticker'); ?></a>
 	  </h2>
 	  </div>
