@@ -3,10 +3,10 @@ Contributors: gopiplus, www.gopiplus.com
 Donate link: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
-Tags: message, ticker, wordpress, plugin, widget
+Tags: message, ticker, plugin, widget
 Requires at least: 3.4
-Tested up to: 3.9.1
-Stable tag: 7.4
+Tested up to: 4.0
+Stable tag: 7.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -25,13 +25,11 @@ Want to announce something or want to post some message to your visitors? How wi
 This plug-in will display the announcement or message with simple scroller or ticker. It gradually reveals each message into view from left to right. We can add more message, this will display 1 by 1 with horizontal scroller.
 
 **Features of this plugin**
-
 *   Easy to customize.
 *   Support all browsers.
 *   We can add message in any language.
 
 **Plugin configuration**
-
 *   Drag and drop the widget.
 *   Add directly in the theme.
 *   Short code available for pages and posts.
@@ -61,6 +59,10 @@ Q4. How to add the style to this ticker message?
 3. Admin Screen. http://www.gopiplus.com/work/2010/07/18/message-ticker/
 
 == Upgrade Notice ==
+
+= 7.5 =	 
+
+1. Tested up to 4.0
 
 = 7.4 =
 
@@ -116,6 +118,10 @@ Tested up to 3.0
 First version
 
 == Changelog ==
+
+= 7.5 =	 
+
+1. Tested up to 4.0
 
 = 7.4 =
 

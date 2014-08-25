@@ -64,7 +64,7 @@
 		
 		<label for="tag-width"><?php _e('No message text', 'message-ticker'); ?></label>
 		<input name="mt_defaulttext" type="text" value="<?php echo $mt_defaulttext; ?>"  id="mt_defaulttext" size="70" maxlength="500">
-		<p><?php _e('This text will be display, if no announcement available or all announcement expired.', 'message-ticker'); ?> (Example: 5)</p>
+		<p><?php _e('This text will be display, if no announcement available or all announcement expired.', 'message-ticker'); ?></p>
 			
 		<p class="submit">
 		<input name="mt_submit" id="mt_submit" class="button" value="<?php _e('Submit', 'message-ticker'); ?>" type="submit" />

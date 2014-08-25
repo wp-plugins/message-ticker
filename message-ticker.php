@@ -3,7 +3,7 @@
 Plugin Name: message ticker
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Description: This plug-in will display the announcement or message with simple horizontal scroller or horizontal ticker.
-Version: 7.4
+Version: 7.5
 Author: Gopi Ramasamy
 Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Donate link: http://www.gopiplus.com/work/2010/07/18/message-ticker/
