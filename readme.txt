@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Tags: message, ticker, plugin, widget
 Requires at least: 3.4
-Tested up to: 4.1
-Stable tag: 7.6
+Tested up to: 4.2.2
+Stable tag: 7.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -59,6 +59,10 @@ Q4. How to add the style to this ticker message?
 3. Admin Screen. http://www.gopiplus.com/work/2010/07/18/message-ticker/
 
 == Upgrade Notice ==
+
+= 7.7 =	 
+
+1. Tested up to 4.2.2
 
 = 7.6 =	 
 
@@ -122,6 +126,10 @@ Tested up to 3.0
 First version
 
 == Changelog ==
+
+= 7.7 =	 
+
+1. Tested up to 4.2.2
 
 = 7.6 =	 
 
