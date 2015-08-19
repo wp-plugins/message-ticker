@@ -4,6 +4,7 @@
 if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
 {
 	$did = isset($_GET['did']) ? $_GET['did'] : '0';
+	if(!is_numeric($did)) { die('<p>Are you sure you want to do this?</p>'); }
 	
 	$mt_success = '';
 	$mt_success_msg = FALSE;
@@ -61,7 +62,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
       <table width="100%" class="widefat" id="straymanage">
         <thead>
           <tr>
-            <th class="check-column" scope="row"><input type="checkbox" /></th>
+            <th class="check-column" scope="row" style="padding: 8px 2px;"><input type="checkbox" /></th>
 			<th scope="col"><?php _e('Text', 'message-ticker'); ?></th>
             <th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
 			<th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
@@ -71,7 +72,7 @@ if (isset($_POST['frm_mt_display']) && $_POST['frm_mt_display'] == 'yes')
         </thead>
 		<tfoot>
           <tr>
-            <th class="check-column" scope="row"><input type="checkbox" /></th>
+            <th class="check-column" scope="row" style="padding: 8px 2px;"><input type="checkbox" /></th>
 			<th scope="col"><?php _e('Text', 'message-ticker'); ?></th>
             <th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
 			<th scope="col"><?php _e('Display', 'message-ticker'); ?></th>
