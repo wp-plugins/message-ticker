@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Plugin URI: http://www.gopiplus.com/work/2010/07/18/message-ticker/
 Tags: message, ticker, plugin, widget
 Requires at least: 3.4
-Tested up to: 4.3
-Stable tag: 7.8
+Tested up to: 4.3.1
+Stable tag: 7.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -34,6 +34,11 @@ This plug-in will display the announcement or message with simple scroller or ti
 *   Add directly in the theme.
 *   Short code available for pages and posts.
 
+**Translators**
+
+* English (en_EN) - [Gopi Ramasamy](http://www.gopiplus.com/)
+* Polish (pl_PL) - [Abdul Sattar](https://www.couponmachine.in/)
+
 == Installation ==
 
 [Installation instruction](http://www.gopiplus.com/work/2010/07/18/message-ticker/)
@@ -59,6 +64,11 @@ Q4. How to add the style to this ticker message?
 3. Admin Screen. http://www.gopiplus.com/work/2010/07/18/message-ticker/
 
 == Upgrade Notice ==
+
+= 7.9 =
+
+1. Tested up to 4.3.1
+2. Text Domain slug has been added for Language Packs.
 
 = 7.8 =	 
 
@@ -130,6 +140,11 @@ Tested up to 3.0
 First version
 
 == Changelog ==
+
+= 7.9 =
+
+1. Tested up to 4.3.1
+2. Text Domain slug has been added for Language Packs.	 
 
 = 7.8 =	 
 
